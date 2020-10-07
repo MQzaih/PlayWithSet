@@ -58,37 +58,54 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
        
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = (UIColor(red: 0.90, green: 0.75, blue: 0.98, alpha: 1.00))
+     /*   if(game.cardsDisplayed[indexPath.row].isSelected){
+            cell.backgroundColor = (UIColor(red: 0.91, green: 0.67, blue: 0.88, alpha: 1.00))}
+        else{
+              cell.backgroundColor = (UIColor(red: 0.79, green: 0.77, blue: 0.82, alpha: 1.00))
+        }*/
+        cell.backgroundColor = game.cardsDisplayed[indexPath.row].isSelected ? UIColor.white :UIColor(red: 0.83, green: 0.89, blue: 0.85, alpha: 1.00)
+
+
+
+
+
      cell.largeContentTitle = "hi"
         let card = game.cardsDisplayed[indexPath.row]
         let label = UILabel(frame: CGRect(x: 0, y: 0, width:100, height: 100))
-
-
+        
         let string = NSMutableAttributedString()
         
         for _ in 0..<card.numOfCard.rawValue {
             var color = UIColor()
             var shape = ""
             var opacity = CGFloat()
+            var alpha = CGFloat()
+
             switch card.colorOfCard {
             case .black:
-                color = .black
+                color = UIColor(red: 0.80, green: 0.39, blue: 0.25, alpha: 1.00)
+
             case .red:
-                color = .red
+                color = UIColor(red: 0.80, green: 0.25, blue: 0.38, alpha: 1.00)
             case .blue:
-                color = .blue
+                color = UIColor(red: 0.25, green: 0.67, blue: 0.80, alpha: 1.00)
+
+
             }
             
             switch card.shadeOfCard {
             case .faded:
-                opacity = 0.3
-                
+                opacity = -5.0
+                alpha = 0.4
+
             case .full:
-                opacity = 1
+                opacity = -5.0
+                alpha = 1
+
                 
             case .mid:
-                opacity = 0.75
-                
+                opacity = 5.0
+                alpha = 1.0
             }
             
             
@@ -104,8 +121,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 shape = "■"
             }
     
-            let attributedString = NSAttributedString(string: shape , attributes: [NSAttributedString.Key.foregroundColor: color.withAlphaComponent(opacity), NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30)])
+            let attributedString = NSAttributedString(string: shape , attributes:
+                
+                [.strokeWidth:opacity,NSAttributedString.Key.foregroundColor: color.withAlphaComponent(CGFloat(alpha)), NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30)])
               string.append(attributedString)
+            
         }
     
         
@@ -124,15 +144,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
        // let card = game.cardsDisplayed[indexPath.row]
         let index = indexPath.row
         game.selectCard(at: index)
-        game.indexo.append(index)
         
         if game.matchedFlag{
+            
             game.removeMatched()
             self.collectionView.reloadData()
+
         }
         updateScore()
         self.collectionView.reloadData()
-  //      print(card.colorOfCard.description)
+  //      print(card.colorOfCa/rd.description)
 
        
     }

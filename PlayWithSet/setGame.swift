@@ -53,45 +53,53 @@ struct SetGame
        // print("im here printing \(index)")
      //  print("\(score)")
         if cardsDisplayed[index].isSelected {
+            print(" it was selected before")
           cardsDisplayed[index].isSelected = false
+            print("selected count is before deselection\(selected.count)")
             if let x = selected.firstIndex(of:cardsDisplayed[index]){
                 selected.remove(at: x)
+                print(" count after card deselected")
+                print(selected.count)
+                print(selected)
             }
         }
         else {
             cardsDisplayed[index].isSelected = true
             addSelected(index)
-            indexo.append(index)
             if(selected.count==3){
-            let flag = matchedReq()
-                print("\(flag)")
-                
+                    print(selected.count)
+                    print(selected)
+                let flag = matchedReq()
+                    if flag == true {
+                        print("7afot 3l remove")
+                      removeMatched()
+                    Deselect()
+                    }
+                    else{
+                        Deselect()
+                }
                 updateScore(thisFlag: flag)
+
             }
-        }
+            }
+        
+     
+        
     }
     
-    mutating func updateScore (thisFlag: Bool){
-        if thisFlag {
-            score+=3
-            print(score)
-        }
-        else {
-            score-=3
-        }
-    }
-    
+
     mutating func addSelected (_ index: Int ){
     
-           if selected.count == 3 {
-               Deselect()
-           }
-           selected.append(cards[index])
+        
+           selected.append(cardsDisplayed[index])
+        indexo.append(index)
        }
     
     mutating func Deselect(){
        
         selected.removeAll()
+        print("i will print selected")
+        print(selected)
         indexo.removeAll()
     
         for index in cardsDisplayed.indices{
@@ -100,12 +108,28 @@ struct SetGame
         
     }
     mutating func removeMatched (){
-        cardsDisplayed.remove(at: indexo[0])
-        cardsDisplayed.remove(at: indexo[1])
-        cardsDisplayed.remove(at: indexo[2])
+      //  print(cardsDisplayed[indexo[0]])
+        //print(cardsDisplayed[indexo[1]])
+        //print(cardsDisplayed[indexo[2]])
+print("removing")
+        print("before removal \(cardsDisplayed.count)")
 
-matchedFlag = false
-    }
+        if let x = cardsDisplayed.firstIndex(of:selected[0]){
+        cardsDisplayed.remove(at: x)}
+            if let y = cardsDisplayed.firstIndex(of:selected[1]){
+                cardsDisplayed.remove(at: y)}
+                if let z = cardsDisplayed.firstIndex(of:selected[2]){
+                    cardsDisplayed.remove(at: z)}
+        print("after removal \(cardsDisplayed.count)")
+        print("ra7 atba3 l selected")
+        print(selected)
+        matchedFlag = false
+       /* for _ in 0..<cardsDisplayed.count {
+            print (cardsDisplayed[0].description)
+                }*/
+                
+            }
+        
     
 mutating func matchedReq()->Bool {
     for index in 0..<3{
@@ -183,6 +207,15 @@ mutating func matchedReq()->Bool {
             }
     
 
+   mutating func updateScore (thisFlag: Bool){
+       if thisFlag {
+           score+=3
+           print(score)
+       }
+       else {
+           score-=3
+       }
+   }
    
      
 
