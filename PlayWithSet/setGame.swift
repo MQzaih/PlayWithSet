@@ -65,6 +65,7 @@ struct SetGame
             if(selected.count==3){
             let flag = matchedReq()
                 print("\(flag)")
+                
                 updateScore(thisFlag: flag)
             }
         }

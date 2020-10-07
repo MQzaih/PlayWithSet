@@ -129,12 +129,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if game.matchedFlag{
             game.removeMatched()
             self.collectionView.reloadData()
-
+        }
         updateScore()
         self.collectionView.reloadData()
   //      print(card.colorOfCard.description)
 
-       }
+       
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
